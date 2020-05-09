@@ -1,0 +1,27 @@
+.artistcard{
+  
+    
+    padding: 20px 20px 16px;
+    background-color: #282828;
+    border-radius: 8px;
+    isolation: isolate;
+    height: 400px;
+    margin: 20px ;
+    width: 250px;
+}
+.cardimgg{
+   
+    height: 200px;
+   width: 200px;
+}
+.cardtext{
+    text-align: left;
+    margin-left: 0px;
+    margin-top: 10px;
+}
+.text{
+    /* margin-left: 20px; */
+    font-size: 14px;
+    color: #9e9e9e;
+    
+}
