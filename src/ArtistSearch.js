@@ -8,8 +8,9 @@ const ArtistSearch = props => {
 const artist=props.items;
  
   return (
-    <div className="artistcard">
-      {artist.images[0].url&&(
+    <a  href={"#"} className="link"> 
+    <div className="artistcard" onClick={props.onClick}>
+      {artist.images[0] &&(
         <div  className="cardimgg" >
         <img src={artist.images[0].url} className="cardimgg" alt="img"/>
         </div>
@@ -37,7 +38,7 @@ const artist=props.items;
        
     
     </div>  
-      
+      </a>
     
   );
 }
