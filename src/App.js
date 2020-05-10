@@ -36,6 +36,8 @@ class App extends Component {
       albums:[],
       showalbums:false,
       artistname:'',
+      allartists:[],
+      showallartist:Boolean
            
     }
     this.getCurrentlyArtist = this.getCurrentlyArtist.bind(this);
@@ -59,11 +61,45 @@ class App extends Component {
             this.setState({
             artists: result.artists,
             items:this.state.artists.items,
+            
             showartist:true
-            });
+            },()=>this.setallartists()
+            );
         },
         )}
   }
+
+  setallartists()
+  {
+    let artists=this.state.items
+    if(artists){
+      this.state.allartists=[];
+      for(var i=0;i<artists.length;i++){
+        // push the component to elements!
+       this.state.allartists.push(artists[i].name);
+      }
+      this.showallartist=true
+      return (
+        <ul >
+            {
+                this.state.allartists.map((item, index) => (<li key={index} onClick={() => this.selectedText(item)}>{item}</li>))
+            }
+        </ul>
+    );
+    }
+    else{
+      return null;
+    }
+  }
+    selectedText(name){
+      this.setState({
+        allartists:[],
+        value: name,
+        showallartist:false
+      });
+    }
+    
+ 
   componentDidMount() { 
     
     let _token = hash.access_token;
@@ -120,14 +156,14 @@ class App extends Component {
         value: event.target.value
       })
     }else{
-      this.setState({value: event.target.value},
+      this.setState({value: event.target.value,showallartist:true},
         ()=>this.getCurrentlyArtist(this.state.token)
         );
     }   
   } 
 
   render() {
-   
+   console.log(this.state.allartists)
     return (
       <div className="App">
           <header className="App-header">
@@ -152,12 +188,19 @@ class App extends Component {
 
               <div>
                 <div class="form-group has-search">
-    <span class="fa fa-search form-control-feedback"></span>
+                <span class="fa fa-search form-control-feedback"></span>
               <input  type="search"  placeholder="Search for an artist" className="search"  value={this.state.value} onChange={this.handleChange}/>
+              
                </div>
               {this.state.showartist &&(
                   <div>
                   {this.state.items &&(
+                    <div>
+                      {this.state.showallartist &&(
+                    <div className="Suggestions">
+                    {this.setallartists()}
+                    </div>
+                      )} 
                       <div className="row">
                       {this.state.items.map(item =>(
 
@@ -169,6 +212,7 @@ class App extends Component {
                             
                           </div>
                       ))}
+                      </div>
                       </div>
                   )}
 
