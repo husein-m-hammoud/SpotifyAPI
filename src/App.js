@@ -43,9 +43,8 @@ class App extends Component {
     this.getCurrentlyArtist = this.getCurrentlyArtist.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-
-  getCurrentlyArtist(token) {
-    
+  //Artist Search
+  getCurrentlyArtist(token) {    
     if (this.state.value)
     {
         fetch("https://api.spotify.com/v1/search?query="+this.state.value+"&type=artist",
@@ -68,7 +67,7 @@ class App extends Component {
         },
         )}
   }
-
+  //Get all artists to put it in allartists
   setallartists()
   {
     let artists=this.state.items
@@ -91,6 +90,7 @@ class App extends Component {
       return null;
     }
   }
+    ///Select artists name
     selectedText(name){
       this.setState({
         allartists:[],
@@ -99,31 +99,29 @@ class App extends Component {
       });
     }
     
- 
+ // Get Token from url
   componentDidMount() { 
     
     let _token = hash.access_token;
     if (_token) {    
       this.setState({
         token: _token       
-      }
-      );      
+      });      
       }
    }
+   // check if goback in windows is pressed
    componentDidUpdate(){
-
     var lastHistoryLength = window.history.length;
     window.onpopstate = function() {
       if (window.history.length == lastHistoryLength)
          window.location.reload();
 
       lastHistoryLength = window.history.length;
-    };
-   
+        }; 
   
       }
  
-
+  // Get the albums of artist
    getCurrentlyalbums(id,name) {    
     if (id)
     {
@@ -142,11 +140,9 @@ class App extends Component {
             artistname:name            
             });
         },
-        )
-    }
+        )}
   }
-
-
+  //check if the search input is change
   handleChange(event)
   {
     if(!event.target.value)
@@ -187,8 +183,8 @@ class App extends Component {
               {this.state.token && (
 
               <div>
-                <div class="form-group has-search">
-                <span class="fa fa-search form-control-feedback"></span>
+                <div className="form-group has-search">
+                <span className="fa fa-search form-control-feedback"></span>
               <input  type="search"  placeholder="Search for an artist" className="search"  value={this.state.value} onChange={this.handleChange}/>
               
                </div>
@@ -204,7 +200,8 @@ class App extends Component {
                       <div className="row">
                       {this.state.items.map(item =>(
 
-                          <div className="col-md-3" key={item.id}>                                  
+                          <div className="col-md-3" key={item.id}> 
+                                                             
                             <ArtistSearch
                             items={item}
                             onClick={this.getCurrentlyalbums.bind(this, item.id,item.name)}
