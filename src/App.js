@@ -109,17 +109,7 @@ class App extends Component {
       });      
       }
    }
-   // check if goback in windows is pressed
-   componentDidUpdate(){
-    var lastHistoryLength = window.history.length;
-    window.onpopstate = function() {
-      if (window.history.length == lastHistoryLength)
-         window.location.reload();
 
-      lastHistoryLength = window.history.length;
-        }; 
-  
-      }
  
   // Get the albums of artist
    getCurrentlyalbums(id,name) {    
